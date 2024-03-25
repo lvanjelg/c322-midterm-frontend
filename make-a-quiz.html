@@ -17,13 +17,13 @@
     <li><a href="take-a-quiz.html">Take a quiz</a></li>
     <li class="right"><a href="#about">About</a></li>
   </ul>
-  <div id="newQuiz" style="border-color:yellow; border-width:1px; border-style:solid;">
+  <form id="newQuiz" style="border-color:yellow; border-width:1px; border-style:solid;">
     <h2>The new quiz</h2>
     <label for="qTitle">Quiz Title</label>
     <input type="text" id="qTitle" required /><br />
     <input type="button" value="Save your changes" onclick="add()"/><br/>
     <input type="button" value="Save this quiz and start another" onclick="add()"/><br/>
-  </div>
+  </form>
   <div id="questions" style="border-color:orange; border-width:1px; border-style:solid;">
     <h2>Questions Bank</h2>
     <h3>Click on a question to add it to the quiz.</h3>
@@ -89,6 +89,7 @@
         let data = Object.fromEntries(formData);
         let quiz = {};
         quiz.ids = data.ids;
+        quiz.title = qTitle;
         addTheQuiz(quiz);
       }
 
@@ -107,14 +108,11 @@
           let id = await response.json();
           let result = await submitTheImage(id, imageFile);
           if (result) {
-            message = "The question was added successfully!";
-          } else {
-            message =
-              "Something went wrong! Question data was saved successfully but question image was not saved.";
+            message = "The quiz was added successfully!";
           }
         } else {
           console.log(response);
-          message = "Something went wrong! Question data could not be saved.";
+          message = "Something went wrong! Quiz data could not be saved.";
         }
         alert(message);
         location.href = "make-a-quiz.html";
